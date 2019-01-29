@@ -1,0 +1,11 @@
+{% extends "todo/base.html" %}
+
+{% block bodyblock %}
+    <form action="/todos/create/" method="post">
+        {% csrf_token %}
+        <input type="text" name="title"/>
+        <input type="text" name="content"/>
+        <input type="date" name="due_date"/>
+        <input type="submit" value="Submit"/>
+    </form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "todo/base.html" %}
+
+{% block bodyblock %}
+    <div class="alert alert-light" role="alert">
+        <h1>Index Page <span class="badge badge-secondary">Todo</span></h1>
+    </div>
+    {% for todo in todos %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{todo.title}}</h5>
+        <p class="card-text">{{todo.due_date}}</p>
+        <a href="/todos/{{todo.id}}/" class="btn btn-primary">할일 보러가기</a>
+      </div>
+    </div>
+    
+    {% endfor %}
+{% endblock %}
