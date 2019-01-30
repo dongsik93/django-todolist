@@ -1,9 +1,23 @@
 {% extends "todo/base.html" %}
 
 {% block bodyblock %}
+
     <h1>{{todo.title}}</h1>
     <h3>{{todo.content}}</h3>
     <h4>{{todo.due_date}}</h4>
     <a href="/todos/{{todo.id}}/delete/">삭제</a>
     <a href="/todos/{{todo.id}}/edit/">수정</a>
+    
+    <form action="/todos/{{todo.id}}/comment/create/" method="post">
+        {% csrf_token %}
+        <input type="text" name="content"/>
+        <input type="submit" value="Submit"/>
+    </form>
+    
+    {% for comment in todo.comment_set.all %}
+        <h4>{{comment.content}}<a href="/todos/{{todo.id}}/comment/{{comment.id}}/delete">삭제</a></h4>
+    {% endfor %}
+    
+    
+    
 {% endblock %}

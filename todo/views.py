@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Todo
+from .models import Todo, Comment
 
 def index(request):
     todos = Todo.objects.order_by("due_date").all()
@@ -50,3 +50,17 @@ def update(request, id):
     todo.save()
     
     return redirect(f"/todos/{id}/")
+    
+def comment(request, id):
+    todo = Todo.objects.get(pk=id)
+    content = request.POST.get("content")
+    
+    Comment.objects.create(todo=todo, content=content)
+    
+    return redirect(f"/todos/{id}/")
+    
+def delete(request, t_id, c_id):
+    comment = Comment.objects.get(pk=c_id)
+    comment.delete()
+    
+    return redirect(f"/todos/{t_id}/")
